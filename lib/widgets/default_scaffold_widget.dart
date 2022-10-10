@@ -10,12 +10,13 @@ class DefaultScaffoldWidget extends StatelessWidget {
   final bool onlyMenuButton;
   final bool hasHistoryAndMenuButton;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
   const DefaultScaffoldWidget({
     Key? key,
     required this.child,
     this.hasAddressOnAppBar = true,
     this.onlyMenuButton = false,
-    this.hasHistoryAndMenuButton = false, this.floatingActionButton,
+    this.hasHistoryAndMenuButton = false, this.floatingActionButton,  this.floatingActionButtonLocation=FloatingActionButtonLocation.centerFloat,
   }) : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
       // floatingActionButton: PaymentHistoryButton(
       //     onlyMenuButton: onlyMenuButton,
       //     hasHistoryAndMenuButton: hasHistoryAndMenuButton),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButton: floatingActionButton,
     );
   }

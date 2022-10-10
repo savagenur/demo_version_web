@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/review':(context) =>ReviewPage(),
         '/create-review':(context) =>CreateReviewPage(),
         '/check':(context) =>CheckPage(),
-        '/payment-method':(context) =>PaymentMethodPage(),
+        // '/payment-method':(context) =>PaymentMethodPage(),
         '/receipt-of-payment':(context) =>ReceiptOfPaymentPage(),
         '/calculation':(context) =>CalculationPage(),
         '/detailed-check':(context) =>DetailedCheckPage(),

@@ -1,9 +1,11 @@
+import 'package:demo_version_web/pages/Payment/receipt_of_payment_page.dart';
 import 'package:demo_version_web/utils/constants.dart';
 import 'package:demo_version_web/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatefulWidget {
-  const PaymentMethodPage({Key? key}) : super(key: key);
+  final String text;
+  const PaymentMethodPage({Key? key, required this.text}) : super(key: key);
 
   @override
   State<PaymentMethodPage> createState() => _PaymentMethodPageState();
@@ -46,7 +48,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "(Итого: 14000)",
+              "(Итого: ${widget.text})",
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,17 +100,20 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             actionsAlignment: MainAxisAlignment.spaceEvenly,
             title: const Text('Подтвердите оплату'),
             actions: [
-              ElevatedButton(
+              OutlinedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   child: Text('Отмена')),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('/receipt-of-payment');
-                  },
-                  child: Text('Оплатить')),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).pushNamed('/receipt-of-payment');
+                },
+                style: ElevatedButton.styleFrom(
+                              shape: BeveledRectangleBorder()),
+                child: Text('Оплатить'),
+              ),
             ],
           );
         });

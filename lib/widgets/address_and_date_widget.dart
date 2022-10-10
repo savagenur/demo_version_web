@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AddressAndDateWidget extends StatelessWidget {
   final bool isHistoryPage;
-  const AddressAndDateWidget({
+  const   AddressAndDateWidget({
     Key? key,  this.isHistoryPage=false,
   }) : super(key: key);
 

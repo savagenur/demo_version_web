@@ -6,7 +6,7 @@ import '../../widgets/build_receipt_table.dart';
 import '../../widgets/my_button.dart';
 
 class ReceiptOfPaymentPage extends StatefulWidget {
-  const ReceiptOfPaymentPage({Key? key}) : super(key: key);
+  const ReceiptOfPaymentPage({Key? key, }) : super(key: key);
 
   @override
   State<ReceiptOfPaymentPage> createState() => _ReceiptOfPaymentPageState();
@@ -29,27 +29,31 @@ class _ReceiptOfPaymentPageState extends State<ReceiptOfPaymentPage> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        
         child: Container(
           padding: EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          
           child: Column(
             children: [
-              buildReceiptTable(context,titleAndInfos),
+              buildReceiptTable(context, titleAndInfos),
               Spacer(),
               Row(
                 children: [
-                  Spacer(flex: 10,),
+                  Spacer(
+                    flex: 10,
+                  ),
                   Container(
                     padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey)
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    child: Text(
+                      "Оплачено",
+                      style: Theme.of(context).textTheme.headline4,
                     ),
-                    child: Text("Оплачено",style: Theme.of(context).textTheme.headline4,),
                   ),
-                  Spacer(flex: 1,),
+                  Spacer(
+                    flex: 1,
+                  ),
                 ],
               ),
               Spacer(),
@@ -59,16 +63,14 @@ class _ReceiptOfPaymentPageState extends State<ReceiptOfPaymentPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MyButton(
-            onTap: () {},
-            width: 180,
-            fontSize: 16,
-            icon: Icons.share,
-            text: "Поделиться квитанцией",
-          ),
+        onTap: () {},
+        width: 180,
+        fontSize: 16,
+        icon: Icons.share,
+        text: "Поделиться квитанцией",
+      ),
     );
   }
-
-  
 
   Padding buildRowButtons(BuildContext context) {
     return Padding(

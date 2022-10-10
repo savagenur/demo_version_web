@@ -1,4 +1,5 @@
 import 'package:demo_version_web/models/bill_model.dart';
+import 'package:demo_version_web/pages/Payment/payment_method_page.dart';
 import 'package:demo_version_web/utils/constants.dart';
 import 'package:demo_version_web/widgets/build_app_bar.dart';
 import 'package:demo_version_web/widgets/default_scaffold_widget.dart';
@@ -17,10 +18,18 @@ class CheckPage extends StatefulWidget {
 
 class _CheckPageState extends State<CheckPage> {
   late List<BillModel> bills;
+  TextEditingController controller = TextEditingController(text: "14000");
+  late String sum;
   @override
   void initState() {
     bills = List.of(allBills);
     super.initState();
+    sum = controller.text;
+    controller.addListener(() {
+      setState(() {
+        sum = controller.text;
+      });
+    });
   }
 
   @override
@@ -32,34 +41,82 @@ class _CheckPageState extends State<CheckPage> {
     ];
     return DefaultScaffoldWidget(
       hasAddressOnAppBar: false,
-        child: Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          AddressAndDateWidget(),
-          Container(
-            height: MediaQuery.of(context).size.height * .7,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: buildDataTable(columns),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              AddressAndDateWidget(),
+              Container(
+                height: MediaQuery.of(context).size.height * .55,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: buildDataTable(columns),
+                  ),
+                ),
               ),
+              SizedBox(
+                height: 100,
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Введите сумму оплаты:",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            width: 200,
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  hintText: controller.text,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    gapPadding: 10,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    gapPadding: 10,
+                  ),
+                  focusColor: Colors.green,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    gapPadding: 10,
+                    borderSide: BorderSide(color: Colors.green),
+                  )),
             ),
           ),
-          
-          
+          Padding(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: MyButton(
+                icon: Icons.payments_rounded,
+                text: "Выбрать способ оплаты (итого ${sum})",
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PaymentMethodPage(
+                        text: controller.text == '' ? "14000" : controller.text,
+                      ),
+                    ),
+                  );
+                }),
+          )
         ],
       ),
-    ),floatingActionButton: Padding(
-      padding: const EdgeInsets.all(defaultPadding),
-      child: MyButton(
-                icon: Icons.payments_rounded,
-                text: "Выбрать способ оплаты (итого 14000)",
-                onTap: () {
-                  Navigator.of(context).pushNamed('/payment-method');
-                }),
-    ),);
+    );
   }
 
   DataTable buildDataTable(List<DataColumn> columns) {
@@ -67,7 +124,7 @@ class _CheckPageState extends State<CheckPage> {
       columns: columns,
       rows: getRows(bills),
       columnSpacing: 200,
-      dataRowHeight: 70,
+      dataRowHeight: 60,
     );
   }
 
